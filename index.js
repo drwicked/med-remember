@@ -1,4 +1,5 @@
 const express = require('express')
+const axios = require('axios')
 const bodyParser = require('body-parser')
 const app = express()
 const moment = require('moment')
@@ -18,7 +19,6 @@ app.post('/meds/took', (req, res) => {
     const today = moment().format('YYYYMMDD')
     db.set(today, moment().format());
     console.log('meds taken', today);
-    res.send(`meds taken: ${moment().format()}`)
   } else {
     res.status(401);
     res.send('invalid token')
@@ -27,13 +27,17 @@ app.post('/meds/took', (req, res) => {
 
 app.get('/meds/diditake', (req, res) => {
   const today = moment().format('YYYYMMDD')
-  console.log('today', today)
   const took = db.get(today);
   if (took) {
-    console.log('I did take meds today', took)
-    res.send(`meds taken ${moment(took).fromNow()}`)
+    axios.post('https://maker.ifttt.com/trigger/meds_taken/with/key/dOdmGPvU-ZzrTG5owb8EZz').then(response => {
+      console.log('I did take meds today', took)
+      res.send(`meds taken ${moment(took).fromNow()}`)
+    }).catch(error => console.error('error', error))
   } else {
-    res.send(`no meds taken yet today`)
+    axios.post('https://maker.ifttt.com/trigger/no_meds_taken/with/key/dOdmGPvU-ZzrTG5owb8EZz').then(response => {
+      console.log(`no meds taken yet today`)
+      res.send(`no meds taken yet today`)
+    }).catch(error => console.error('error', error))
   }
 })
 
