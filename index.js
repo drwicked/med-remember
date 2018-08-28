@@ -14,8 +14,10 @@ db.on('load', () => {
 
 app.post('/meds/took', (req, res) => {
   if (req.body.token === 'GARGANTUANTOKEN') {
-    db.set(moment().format('YYYYMMDD'), moment().format());
-    res.send(`meds took: ${moment().format()}`)
+    const today = moment().format('YYYYMMDD')
+    db.set(today, moment().format());
+    console.log('meds taken', today);
+    res.send(`meds taken: ${moment().format()}`)
   } else {
     res.status(401);
     res.send('invalid token')
