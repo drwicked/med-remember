@@ -29,8 +29,8 @@ app.get('/meds/diditake', (req, res) => {
   const today = moment().format('YYYYMMDD')
   console.log('today', today)
   const took = db.get(today);
-  console.log('took', took)
   if (took) {
+    console.log('I did take meds today', took)
     res.send(`meds taken ${moment(took).fromNow()}`)
   } else {
     res.send(`no meds taken yet today`)
