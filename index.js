@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
 const moment = require('moment')
 
@@ -11,7 +12,7 @@ db.on('load', () => {
     console.log('key, val', key, val)
   })
 })
-
+app.use(bodyParser.json())
 app.post('/meds/took', (req, res) => {
   if (req.body.token === 'GARGANTUANTOKEN') {
     const today = moment().format('YYYYMMDD')
