@@ -11,16 +11,17 @@ const db = dirty('./user.db')
 const bitYes = new Sound('./sounds/tron_bit_yes.wav')
 const bitNo = new Sound('./sounds/tron_bit_no.wav')
 
+const token = 'GARGANTUANTOKEN';
+
 db.on('load', () => {
-  console.log('db loaded');
-  db.forEach((key, val) => {
-    console.log('key, val', key, val)
-  })
+  console.log('database loaded')
 })
 app.use(bodyParser.json())
 app.post('/meds/took', (req, res) => {
-  if (req.body.token === 'GARGANTUANTOKEN') {
+  if (req.body.token === token) {
+    // get day-based key
     const today = moment().format('YYYYMMDD')
+    // log in database
     db.set(today, moment().format());
     console.log('meds taken', today);
   } else {
