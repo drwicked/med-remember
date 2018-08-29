@@ -7,10 +7,10 @@ const app = express()
 const moment = require('moment')
 const dirty = require('dirty')
 
-const db = dirty('./user.db')
+const db = dirty('./med-remember.db')
 
-const bitYes = new Sound('./sounds/tron_bit_yes.wav')
-const bitNo = new Sound('./sounds/tron_bit_no.wav')
+const bitYes = new Sound('./sounds/yes.wav')
+const bitNo = new Sound('./sounds/no.wav')
 
 const token = process.env.POST_TOKEN || 'medrememberposttoken';
 
