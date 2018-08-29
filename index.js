@@ -39,8 +39,8 @@ app.get('/meds/diditake', (req, res) => {
 })
 
 
-app.post('/', (req, res) => {
-  res.send('Hello World!')
+app.get('/', (req, res) => {
+  res.send('you can go about your business')
 })
 
 app.listen(8090, () => console.log('Example app listening on port 8090!'))
