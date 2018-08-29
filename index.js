@@ -1,17 +1,18 @@
+require('dotenv').config()
 const express = require('express')
 const axios = require('axios')
 const bodyParser = require('body-parser')
 const Sound = require('node-aplay')
 const app = express()
 const moment = require('moment')
-
 const dirty = require('dirty')
+
 const db = dirty('./user.db')
 
 const bitYes = new Sound('./sounds/tron_bit_yes.wav')
 const bitNo = new Sound('./sounds/tron_bit_no.wav')
 
-const token = 'GARGANTUANTOKEN';
+const token = process.env.POST_TOKEN || 'medrememberposttoken';
 
 db.on('load', () => {
   console.log('database loaded')
@@ -35,13 +36,13 @@ app.get('/meds/diditake', (req, res) => {
   const took = db.get(today);
   if (took) {
     bitYes.play()
-    axios.post('https://maker.ifttt.com/trigger/meds_taken/with/key/dOdmGPvU-ZzrTG5owb8EZz').then(response => {
+    axios.post(`https://maker.ifttt.com/trigger/meds_taken/with/key/${process.env.IFTTT_TOKEN}`).then(response => {
       console.log('I did take meds today', took)
       res.send(`meds taken ${moment(took).fromNow()}`)
     }).catch(error => console.error('error', error))
   } else {
     bitNo.play()
-    axios.post('https://maker.ifttt.com/trigger/no_meds_taken/with/key/dOdmGPvU-ZzrTG5owb8EZz').then(response => {
+    axios.post(`https://maker.ifttt.com/trigger/no_meds_taken/with/key/${process.env.IFTTT_TOKEN}`).then(response => {
       console.log(`no meds taken yet today`)
       res.send(`no meds taken yet today`)
     }).catch(error => console.error('error', error))
