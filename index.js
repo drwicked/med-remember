@@ -21,6 +21,22 @@ app.post('/meds/took', (req, res) => {
     res.send('invalid token')
   }
 })
+app.get('/meds/list/:secret', (req, res) => {
+  const { secret } = req.params;
+  if (secret === token) {
+    console.log('meds taken', medsTaken);
+    res.status(200);
+    const prettier = Object.keys(medsTaken).map(key => {
+      const value = medsTaken[key];
+      const prettyTime = moment(value).format('h:mm:ss a');
+      return `${moment(key).format("dddd, MMMM Do YYYY")}: ${prettyTime}`
+    }).join('/n');
+    res.send(prettier);
+  } else {
+    res.status(401);
+    res.send('invalid secret')
+  }
+})
 
 app.get('/meds/diditake', (req, res) => {
   const today = moment().format('YYYYMMDD')

@@ -20,3 +20,7 @@ This app uses a basic database ([dirtydb](https://github.com/felixge/node-dirty)
 Copy `.env.example` to `.env`
 `cp .env.example .env`
 Modify keys for security
+
+If you redeploy you need to do another `now alias <url> <subdomain>` [See the docs for more info about alias](https://zeit.co/docs/features/aliases)
+
+Apps on now.sh/zeit.co have [limited persistence](https://zeit.co/docs/other/faq#can-i-run-a-database-on-the-now-platform), I haven't tested extensively to see how long each deploy lasts.
