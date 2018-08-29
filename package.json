@@ -14,6 +14,7 @@
     "node-aplay": "^1.0.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "now --dotenv"
   }
 }
