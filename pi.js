@@ -36,16 +36,16 @@ app.get('/meds/diditake', (req, res) => {
   const took = db.get(today);
   if (took) {
     bitYes.play()
-    axios.post(`https://maker.ifttt.com/trigger/meds_taken/with/key/${process.env.IFTTT_TOKEN}`).then(response => {
-      console.log('I did take meds today', took)
-      res.send(`meds taken ${moment(took).fromNow()}`)
-    }).catch(error => console.error('error', error))
+    console.log('I did take meds today', took)
+    res.send(`meds taken ${moment(took).fromNow()}`)
+    // axios.post(`https://maker.ifttt.com/trigger/meds_taken/with/key/${process.env.IFTTT_TOKEN}`).then(response => {
+    // }).catch(error => console.error('error', error))
   } else {
     bitNo.play()
-    axios.post(`https://maker.ifttt.com/trigger/no_meds_taken/with/key/${process.env.IFTTT_TOKEN}`).then(response => {
-      console.log(`no meds taken yet today`)
-      res.send(`no meds taken yet today`)
-    }).catch(error => console.error('error', error))
+    console.log(`no meds taken yet today`)
+    res.send(`no meds taken yet today`)
+    // axios.post(`https://maker.ifttt.com/trigger/no_meds_taken/with/key/${process.env.IFTTT_TOKEN}`).then(response => {
+    // }).catch(error => console.error('error', error))
   }
 })
 
