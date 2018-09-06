@@ -21,6 +21,20 @@ db.on('load', () => {
 
 })
 app.use(bodyParser.json())
+
+// app.ws('/echo', function(ws, req) {
+//   ws.on('message', function(msg) {
+//     ws.send(msg);
+//   });
+// });
+
+const msg = 'data'
+
+app.get('/status', (req, res) => {
+  console.log('req', req)
+  res.send(msg)
+})
+
 app.post('/meds/took', (req, res) => {
   if (req.body.token === token) {
     // get day-based key
@@ -43,6 +57,7 @@ app.get('/meds/diditake', (req, res) => {
     say.speak(`meds taken ${moment(took).fromNow()}`);
     console.log('I did take meds today', took)
     res.send(`meds taken ${moment(took).fromNow()}`)
+
   } else {
     bitNo.play()
     say.speak(`you haven't taken your meds today`)
@@ -50,9 +65,5 @@ app.get('/meds/diditake', (req, res) => {
   }
 })
 
-
-app.post('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 app.listen(8090, () => console.log('med-remember listening on port 8090!'))

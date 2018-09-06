@@ -24,3 +24,7 @@ Modify keys for security
 If you redeploy you need to do another `now alias <url> <subdomain>` [See the docs for more info about alias](https://zeit.co/docs/features/aliases)
 
 Apps on now.sh/zeit.co have [limited persistence](https://zeit.co/docs/other/faq#can-i-run-a-database-on-the-now-platform), I haven't tested extensively to see how long each deploy lasts.
+
+
+[Marak/say.js: TTS (text to speech) for node.js. send text from node.js to your speakers.](https://github.com/Marak/say.js/)
+[roccomuso/node-aplay: ALSA aplay wrapper for Node.js](https://github.com/roccomuso/node-aplay)
