@@ -13,6 +13,7 @@
     "express-ws": "^4.0.0",
     "moment": "^2.22.2",
     "node-aplay": "^1.0.3",
+    "pitft": "^0.0.17",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-websocket": "^2.0.0",
