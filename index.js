@@ -221,22 +221,24 @@ setInterval(() => {
   // if (parseInt(moment().format('HH')) >= 20) {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
-  fb.color(0, 1, 0)
   const tempArray = weatherDb.get(moment().format('YYYYMMDD'))
   const baseX = 200
   const baseY = 200
+  const minTemp = 70
   const maxTemp = 105
   const barWidth = 10
   const barPadding = 3
   tempArray.forEach((val, i) => {
     const x = baseX + ((barWidth + barPadding) * i)
-    const tempPerc = val/maxTemp
+    const tempPerc = (val - minTemp)/(maxTemp - minTemp)
     console.log('tempPerc', tempPerc)
     const barHeight = Math.floor(tempPerc * maxTemp)
     const y = baseY + (maxTemp - barHeight)
     console.log('x, y, barWidth, barHeight', x, y, barWidth, barHeight)
     fb.font("fantasy", 10);
+    fb.color(1, 1, 1)
     fb.text(x, y, val, false, 0, false);
+    fb.color(0, 1, 0)
     fb.rect(x, y, barWidth, barHeight, true);
   })
 }, 2000);
