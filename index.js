@@ -38,14 +38,14 @@ const framebufferText = (text) => {
   fb.text(xMax, yMax/2, text, false, 0, true);
 }
 
-let textString = '#temp° :: #time'
+let textString = '#temp :: #time'
 let f = 0.0;
 
 
 const getWeather = async () => {
   const { data: { weather, main: { temp, humidity } } } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`)
   console.log('temp, humidity', temp, humidity)
-  return `${temp}° - ${humidity}%`;
+  return `${Math.round(temp)}° | ${humidity}%`;
 }
 let weatherString = getWeather();
 
