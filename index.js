@@ -8,7 +8,8 @@ const moment = require('moment-holiday')
 const dirty = require('dirty')
 const say = require('say')
 const wget = require('wget-improved')
-var fs = require('fs')
+const fs = require('fs')
+const $ = require('cheerio')
 
 const shortMoment = moment;
 shortMoment.locale('en', {
@@ -111,7 +112,18 @@ const getWeather = async () => {
   console.log('nextHolidayIn', nextHolidayIn)
   return `${Math.round(temp)}° | ${humidity}%`;
 }
+
+const getDays = async () => {
+  await axios.get('http://nationaldaycalendar.com/latest-posts/').then((response) => {
+    var today = $('.post', body).first();
+     var days = $('h2.entry-title a', today).text().split(' – ');
+     days.shift();
+     console.log('days', days)
+  })
+}
+
 let weatherString = '';
+let days = [];
 (async function() {
   weatherString = await getWeather();
 })()
@@ -119,6 +131,7 @@ let weatherString = '';
 console.log('weatherString', weatherString)
 setInterval(async () => {
   weatherString = await getWeather()
+  days = await getDays();
 }, 120000);
 setInterval(() => {
   fb.clear()
