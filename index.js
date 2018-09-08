@@ -43,9 +43,8 @@ setInterval(() => {
   axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).then((response) => {
     console.log('response', response)
     const { weather: { description }, main: { temp = '0', humidity, temp_min, temp_max } } = response;
-
+    framebufferText(`${temp}° : ${description} : ${moment().format('h:mm a')}`)
   })
-  framebufferText(`${temp}° : ${description} : ${moment().format('h:mm a')}`)
 }, 15000);
 
 db.on('load', () => {
