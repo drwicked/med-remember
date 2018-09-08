@@ -8,6 +8,7 @@ const moment = require('moment')
 const dirty = require('dirty')
 const say = require('say')
 const wget = require('wget-improved')
+var fs = require('fs')
 
 const shortMoment = moment;
 shortMoment.locale('en', {
@@ -83,20 +84,24 @@ const getWeather = async () => {
   } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).catch(err => console.log(err))
   console.log('weather', weather)
   const [{ main, icon }] = weather
-  wget.download(`http://openweathermap.org/img/w/${icon}.png`, `images/${icon}.png`).on('end', (output) => {
-    console.log('output', output);
-    weatherData = {
-      weatherType: main,
-      windSpeed: speed,
-      temp,
-      humidity,
-      temp_min,
-      temp_max,
-      sunrise,
-      sunset,
-      icon: `./images/${icon}.png`
-    }
-  })
+  if (!fs.existsSync(path)) {
+    wget.download(`http://openweathermap.org/img/w/${icon}.png`, `images/${icon}.png`).on('end', (output) => {
+      console.log('output', output);
+    })
+  } else {
+    console.log('ignore');
+  }
+  weatherData = {
+    weatherType: main,
+    windSpeed: speed,
+    temp,
+    humidity,
+    temp_min,
+    temp_max,
+    sunrise,
+    sunset,
+    icon: `./images/${icon}.png`
+  }
   console.log('weatherData', weatherData)
   return `${Math.round(temp)}° | ${humidity}%`;
 }
