@@ -223,7 +223,6 @@ setInterval(() => {
   // }
   fb.color(0, 1, 0)
   const tempArray = weatherDb.get(moment().format('YYYYMMDD'))
-  console.log('tempArray', tempArray)
   const baseX = 200
   const baseY = 200
   const maxTemp = 105
@@ -234,6 +233,7 @@ setInterval(() => {
     const tempPerc = Math.floor(val/maxTemp)
     const barHeight = tempPerc * maxTemp
     const y = baseY + (maxTemp - barHeight)
+    console.log('x, y, barWidth, barHeight', x, y, barWidth, barHeight)
     fb.rect(x, y, barWidth, barHeight, true);
   })
 }, 2000);
