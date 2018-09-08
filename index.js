@@ -119,15 +119,15 @@ setInterval(() => {
   fb.font("fantasy", 32, true);
   fb.text(6, 32, weatherString, false, 0, false);
   fb.text(xMax - 6, 32, timeString, false, 0, true);
-  fb.font("fantasy", 20, true);
-  fb.text(6, 48, weatherType, false, 0, false);
+  fb.font("fantasy", 16, true);
+  fb.text(6, 58, weatherType, false, 0, false);
   const medsTook = db.get(moment().format('YYYYMMDD'))
   if (medsTook) {
     // show took meds msg
 
     const ago = shortMoment(medsTook).fromNow();
     fb.font("fantasy", 22);
-    fb.text(20, yMax - 112, ago, false, 0, false);
+    fb.text(26, yMax - 112, ago, false, 0, false);
     fb.image(10, yMax - 96, "medical.png");
   }
   if (parseInt(moment().format('HH')) >= 20) {
