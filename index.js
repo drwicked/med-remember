@@ -120,8 +120,9 @@ setInterval(() => {
   fb.text(6, 32, weatherString, false, 0, false);
   fb.text(xMax - 6, 32, timeString, false, 0, true);
   fb.font("fantasy", 16, true);
-  fb.text(xMax - 6, 58, moment(sunset*1000).format('h:mm a'), false, 0, true);
-  console.log('moment(sunset)', moment(sunset))
+  const sunsetTime = moment(sunset*1000).utc().format('h:mm a');
+  console.log('sunsetTime', sunsetTime)
+  fb.text(xMax - 6, 58, sunsetTime, false, 0, true);
   fb.text(6, 58, weatherType, false, 0, false);
   fb.text(110, 88, windSpeed, false, 0, false);
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
