@@ -61,6 +61,7 @@ const ding = new Sound('./sounds/ding.wav')
 const token = process.env.POST_TOKEN || 'medrememberposttoken';
 
 
+const weatherDb = dirty('./weather.db')
 const buttonPresses = dirty('./buttons.db')
 let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDDa')
@@ -124,7 +125,16 @@ const getWeather = async () => {
     icon: `./images/${icon}.png`
   }
   console.log('weatherData', weatherData)
-
+  const today = moment().format('YYYYMMDD');
+  if (weatherDb.get(today)) {
+    weatherDb.update(today, (val) => {
+      val.push(temp)
+      console.log('weatherdb updated', val)
+      return val
+    })
+  } else {
+    weatherDb.set(today, [temp])
+  }
   nextHoliday = moment(moment().nextHoliday(1)).isHoliday();
   nextHolidayIn = moment().nextHoliday(1).fromNow()
   return `${Math.round(temp)}° | ${humidity}%`;
