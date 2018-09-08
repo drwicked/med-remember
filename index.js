@@ -99,7 +99,7 @@ setInterval(() => {
     fb.font("fantasy", 24);
     const ago = shortMoment(medsTook).fromNow();
     console.log('ago', ago)
-    fb.text(15, yMax - 112, ago, true, 0, true);
+    fb.text(20, yMax - 112, ago, true, 0, true);
     fb.image(10, yMax - 96, "medical.png");
   }
   if (parseInt(moment().format('HH')) >= 20) {
