@@ -221,6 +221,7 @@ setInterval(() => {
   // if (parseInt(moment().format('HH')) >= 20) {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
+  fb.rect(0, yMax, xMax, yMax-60, true);
 }, 2000);
 
 db.on('load', () => {
