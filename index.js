@@ -170,7 +170,7 @@ setInterval(() => {
   fb.text(xMax - 6, 96, `${nextHoliday} in ${nextHolidayIn}`, false, 0, true);
   days.forEach((day, i) => {
     const maxLength = 26
-    const dayString = `${day.substring(0, Math.min(maxLength, day.length))}${day.length > maxLength ? '...', ''}`
+    const dayString = `${day.substring(0, Math.min(maxLength, day.length))}${day.length > maxLength ? '...' : ''}`
     fb.text(xMax - 6, (128 + (i*20)), dayString, false, 0, true);
   })
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
