@@ -81,7 +81,7 @@ const getWeather = async () => {
       main: { temp, humidity, temp_min, temp_max },
       sys: { sunrise, sunset },
     } 
-  } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).catch(err => console.log(err))
+  } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=78705,us&appid=${process.env.OWM_TOKEN}&units=imperial`).catch(err => console.log(err))
   console.log('weather', weather)
   const [{ main, icon }] = weather
   if (!fs.existsSync(`./images/${icon}.png`)) {
