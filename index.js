@@ -44,9 +44,8 @@ let f = 0.0;
 
 const getWeather = async () => {
   await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).then((response) => {
-    console.log('response', response)
     const { weather, main: { temp, humidity } } = response.data;
-    console.log('weather', weather)
+    console.log('temp, humidity', temp, humidity)
     return `${temp}° - ${humidity}%`;
   }).catch(function (error) {
     console.log(error);
