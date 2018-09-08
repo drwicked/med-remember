@@ -202,17 +202,18 @@ setInterval(() => {
   })
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
+  let weatherOffsetY = 64
   if (rain) {
     fb.font("fantasy", 12, true);
-    fb.text(56, 64, `${Object.keys(rain)[0]} ${Math.floor(Object.values(rain)[0])}%`, false, 0, false);
+    fb.text(56, weatherOffsetY, `${Object.keys(rain)[0]} ${Math.floor(Object.values(rain)[0])}%`, false, 0, false);
     fb.font("fantasy", 16, true);
-    fb.text(120, 64, weatherType, false, 0, false);
+    fb.text(120, weatherOffsetY, weatherType, false, 0, false);
     fb.image(6, 34, icon);
   }
-  fb.text(110, 88, `${windSpeed}mph`, false, 0, false);
-  fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
+  fb.text(110, weatherOffsetY + 24, `${windSpeed}mph`, false, 0, false);
+  fb.text(6, weatherOffsetY + 24, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
   fb.font("fantasy", 12, true);
-  fb.text(8, 104, ' lo        hi', false, 0, false);
+  fb.text(8, weatherOffsetY + 36, ' lo        hi', false, 0, false);
   fb.font("fantasy", 10, true);
   const uptimeMin = moment.duration(Math.round(process.uptime() / 60), 'minutes').format('h[h]mm[m]');
   fb.text(0, yMax, uptimeMin, false, 0, false);
