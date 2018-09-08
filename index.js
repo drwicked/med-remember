@@ -135,19 +135,19 @@ setInterval(() => {
   fb.font("fantasy", 16, true);
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 58, sunsetTime, false, 0, true);
-  fb.text(42, 64, weatherType, false, 0, false);
+  fb.text(50, 64, weatherType, false, 0, false);
   fb.image(6, 34, icon);
   fb.text(110, 88, windSpeed, false, 0, false);
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
   fb.font("fantasy", 12, true);
-  fb.text(8, 104, ' lo       hi', false, 0, false);
+  fb.text(8, 104, ' lo        hi', false, 0, false);
   const medsTook = db.get(moment().format('YYYYMMDD'))
   if (medsTook) {
     // show took meds msg
 
     const ago = shortMoment(medsTook).fromNow();
     fb.font("fantasy", 18);
-    fb.text(26, yMax - 112, ago, false, 0, false);
+    fb.text(32, yMax - 112, ago, false, 0, false);
     fb.image(10, yMax - 96, "medical.png");
   }
   if (parseInt(moment().format('HH')) >= 20) {
