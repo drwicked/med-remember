@@ -202,13 +202,13 @@ setInterval(() => {
   })
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
-  fb.font("fantasy", 12, true);
   if (rain) {
+    fb.font("fantasy", 12, true);
     fb.text(56, 64, `${Object.keys(rain)[0]} ${Math.floor(Object.values(rain)[0])}%`, false, 0, false);
+    fb.font("fantasy", 16, true);
+    fb.text(120, 64, weatherType, false, 0, false);
+    fb.image(6, 34, icon);
   }
-  fb.font("fantasy", 16, true);
-  fb.text(120, 64, weatherType, false, 0, false);
-  fb.image(6, 34, icon);
   fb.text(110, 88, `${windSpeed}mph`, false, 0, false);
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
   fb.font("fantasy", 12, true);
