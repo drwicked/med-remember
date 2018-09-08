@@ -237,7 +237,7 @@ setInterval(() => {
     console.log('x, y, barWidth, barHeight', x, y, barWidth, barHeight)
     fb.font("fantasy", 10);
     fb.color(1, 1, 1)
-    fb.text(x, y - 6, Math.round(val), false, 0, false);
+    fb.text(x - 2, y - 6, Math.floor(val), false, 0, false);
     fb.color(0, 1, 0)
     fb.rect(x, y, barWidth, barHeight, true);
   })
