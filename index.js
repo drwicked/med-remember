@@ -36,11 +36,16 @@ const framebufferText = (text) => {
   fb.clear();
   fb.font("fantasy", 32, true);
   fb.text(xMax, yMax/2, text, false, 0, true);
-  setTimeout(() => fb.clear(), 20000)
 }
 
 setInterval(() => {
-  framebufferText(moment().format('HHmm a'))
+  fb.clear()
+  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}`).then((response) => {
+    console.log('response', response)
+    const { weather: { description }, main: { temp, humidity, temp_min, temp_max } } = response;
+
+  })
+  framebufferText(`${temp}° : ${description} : ${moment().format('h:mm a')}`)
 }, 15000);
 
 db.on('load', () => {
@@ -83,6 +88,7 @@ app.get('/meds/diditake', (req, res) => {
   if (took) {
     bitYes.play();
     framebufferText(`Took meds: ${moment(took).fromNow()}`)
+    setTimeout(() => fb.clear(), 20000)
     say.speak(`meds taken ${moment(took).fromNow()}`);
     console.log('I did take meds today', took)
     res.send(`meds taken ${moment(took).fromNow()}`)
@@ -90,6 +96,7 @@ app.get('/meds/diditake', (req, res) => {
   } else {
     bitNo.play()
     framebufferText(`take your meds`)
+    setTimeout(() => fb.clear(), 20000)
     say.speak(`you haven't taken your meds today`)
     res.send(`no meds taken yet today`)
   }
