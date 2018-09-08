@@ -37,7 +37,10 @@ let button = new DashButton(process.env.DASH_MAC, null, null, 'all');
 const buttonPresses = dirty('./buttons.db')
 let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDD')
-  buttonPresses.update(today, (val) => return parseInt(val) + 1, (data) => console.log(data));
+  buttonPresses.update(today, (val) => {
+    console.log('val', val)
+    return parseInt(val) + 1
+  }, (data) => console.log(data));
   console.log('currentPresses', currentPresses)
 });
 
