@@ -65,9 +65,12 @@ setInterval(async () => {
 }, 30000);
 setInterval(() => {
   fb.clear()
-  const timeEmoji = getTimeEmoji()
-  const timeString = `${moment().format('h:mm a')} ${timeEmoji}`;
+  const timeString = moment().format('h:mm a');
   framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
+  if (parseInt(moment().format('HH')) > 20) {
+    console.log('show image');
+    fb.image(xMax/2 - 16, yMax/2 + radius * 0.50 - 16, "vodka.png");
+  }
 }, 1000);
 
 db.on('load', () => {
