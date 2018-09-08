@@ -108,8 +108,6 @@ const getWeather = async () => {
 
   nextHoliday = moment(moment().nextHoliday(1)).isHoliday();
   nextHolidayIn = moment().nextHoliday(1).fromNow()
-  console.log('nextHoliday', nextHoliday)
-  console.log('nextHolidayIn', nextHolidayIn)
   return `${Math.round(temp)}° | ${humidity}%`;
 }
 
@@ -126,9 +124,7 @@ const getDays = async () => {
     var today = $('.post', data).first();
     var nationalDays = $('h2.entry-title a', today).text().split(' – ');
     nationalDays.shift();
-    console.log('nationalDays', nationalDays)
     const caps = nationalDays.map(day => toTitleCase(day))
-    console.log('caps', caps)
     return caps;
   }).catch((err) => console.log('err', err))
 }
@@ -140,7 +136,6 @@ let days = [];
   days = await getDays();
 })()
 
-console.log('weatherString', weatherString)
 setInterval(async () => {
   weatherString = await getWeather()
   days = await getDays();
