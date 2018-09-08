@@ -117,8 +117,8 @@ const getDays = async () => {
   await axios.get('http://nationaldaycalendar.com/latest-posts/').then((response) => {
     // console.log('response', response)
     var today = $('.post', response).first();
-    console.log('today', today.text())
-    var nationalDays = $('h2.entry-title a', today).text().split(' – ');
+    console.log('today', today, $('h2.entry-title a', today).text())
+    var nationalDays = $('h2.entry-title a', response).first().text().split(' – ');
     nationalDays.shift();
     console.log('nationalDays', nationalDays)
     return nationalDays;
