@@ -62,7 +62,7 @@ let weatherString = '';
 console.log('weatherString', weatherString)
 setInterval(async () => {
   weatherString = await getWeather()
-}, 30000);
+}, 60000);
 setInterval(() => {
   fb.clear()
   const timeString = moment().format('h:mm a');
