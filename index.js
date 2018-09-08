@@ -118,10 +118,9 @@ const getDays = async () => {
     console.log('response', response)
     var today = $('.post', response).first();
     console.log('today', today)
-    var nationalDays = $('h2.entry-title a', today);
-    console.log('nationalDays', nationalDays)
+    var nationalDays = $('h2.entry-title a', today).text();
     // nationalDays.shift();
-    // console.log('nationalDays', nationalDays)
+    console.log('nationalDays', nationalDays)
     return nationalDays;
   })
 }
