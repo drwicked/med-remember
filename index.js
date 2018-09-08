@@ -41,7 +41,6 @@ let subscription = button.on('detected', () => {
     console.log('val', val)
     return parseInt(val) + 1
   }, (data) => console.log(data));
-  console.log('currentPresses', currentPresses)
 });
 
 const db = dirty('./med-remember.db')
