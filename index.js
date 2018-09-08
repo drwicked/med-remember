@@ -115,10 +115,12 @@ const getWeather = async () => {
 
 const getDays = async () => {
   await axios.get('http://nationaldaycalendar.com/latest-posts/').then((response) => {
+    console.log('response', response)
     var today = $('.post', response).first();
     var days = $('h2.entry-title a', today).text().split(' – ');
     days.shift();
     console.log('days', days)
+    return days;
   })
 }
 
@@ -132,6 +134,7 @@ console.log('weatherString', weatherString)
 setInterval(async () => {
   weatherString = await getWeather()
   days = await getDays();
+  console.log('days', days)
 }, 120000);
 setInterval(() => {
   fb.clear()
