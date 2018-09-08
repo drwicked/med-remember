@@ -133,7 +133,7 @@ setInterval(() => {
   fb.text(6, 32, weatherString, false, 0, false);
   fb.font("fantasy", 44, true);
   fb.text(xMax - 6, 32, timeString, false, 0, true);
-  const nextHoliday = moment().nextHoliday(1);
+  const nextHoliday = moment().isHoliday(moment().nextHoliday(1));
   console.log('nextHoliday', nextHoliday)
   fb.text(xMax - 6, 64, nextHoliday, false, 0, true);
   fb.font("fantasy", 16, true);
