@@ -209,6 +209,8 @@ setInterval(() => {
     fb.font("fantasy", 16, true);
     fb.text(120, weatherOffsetY, weatherType, false, 0, false);
     fb.image(6, 34, icon);
+  } else {
+    weatherOffsetY = weatherOffsetY - 24
   }
   fb.text(110, weatherOffsetY + 24, `${windSpeed}mph`, false, 0, false);
   fb.text(6, weatherOffsetY + 24, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
