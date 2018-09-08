@@ -8,6 +8,27 @@ const moment = require('moment')
 const dirty = require('dirty')
 const say = require('say')
 
+const shortMoment = moment();
+shortMoment.locale('en', {
+  relativeTime: {
+    future: 'in %s',
+    past: '%s',
+    s:  's',
+    ss: '%ss',
+    m:  '1m',
+    mm: '%dm',
+    h:  '1h',
+    hh: '%dh',
+    d:  '1d',
+    dd: '%dd',
+    M:  '1M',
+    MM: '%dM',
+    y:  '1Y',
+    yy: '%dY'
+  }
+});
+
+
 const db = dirty('./med-remember.db')
 
 var pitft = require("pitft");
@@ -75,7 +96,8 @@ setInterval(() => {
   if (medsTook) {
     // show took meds msg
 
-    fb.text(xMax/2, yMax/2, moment(medsTook).fromNow(), true);
+    fb.font("fantasy", 24, true);
+    fb.text(10, yMax - 112, shortMoment(medsTook).fromNow(), true);
     fb.image(10, yMax - 96, "medical.png");
   }
   if (parseInt(moment().format('HH')) >= 20) {
