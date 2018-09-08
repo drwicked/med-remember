@@ -83,7 +83,7 @@ const getWeather = async () => {
   } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).catch(err => console.log(err))
   console.log('weather', weather)
   const [{ main, icon }] = weather
-  wget.download(`http://openweathermap.org/img/w/${icon}.png`, `/images/${icon}.png`).on('end', (output) => {
+  wget.download(`http://openweathermap.org/img/w/${icon}.png`, `images/${icon}.png`).on('end', (output) => {
     console.log('output', output);
     weatherData = {
       weatherType: main,
