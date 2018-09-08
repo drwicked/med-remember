@@ -56,7 +56,7 @@ const getWeather = async () => {
 let weatherString = getWeather();
 setInterval(() => {
   weatherString = getWeather()
-}, 1000);
+}, 30000);
 setInterval(() => {
   fb.clear()
   framebufferText(textString.replace('#temp', weatherString).replace('#time', moment().format('h:mm a') ))
