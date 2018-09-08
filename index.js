@@ -191,7 +191,7 @@ setInterval(() => {
   if (parseInt(moment().format('HH')) >= 20) {
     fb.image(100, yMax - 96, "vodka.png");
   }
-}, 1000);
+}, 2000);
 
 db.on('load', () => {
   console.log('database loaded')
