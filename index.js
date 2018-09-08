@@ -193,7 +193,7 @@ setInterval(() => {
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
   fb.font("fantasy", 12, true);
   fb.text(8, 104, ' lo        hi', false, 0, false);
-  const uptimeMin = moment.duration(Math.round(process.uptime()), 'seconds');
+  const uptimeMin = moment.duration(Math.round(process.uptime() / 60), 'minutes');
   fb.text(8, 134, uptimeMin, false, 0, false);
   const medsTook = db.get(moment().format('YYYYMMDD'))
   if (medsTook) {
