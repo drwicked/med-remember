@@ -113,13 +113,21 @@ const getWeather = async () => {
   return `${Math.round(temp)}° | ${humidity}%`;
 }
 
+const toTitleCase = (phrase) => {
+  return phrase
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 const getDays = async () => {
   await axios.get('http://nationaldaycalendar.com/latest-posts/').then(({ data }) => {
     var today = $('.post', data).first();
     var nationalDays = $('h2.entry-title a', today).text().split(' – ');
     nationalDays.shift();
     console.log('nationalDays', nationalDays)
-    return nationalDays;
+    return nationalDays.map(day => toTitleCase(day));
   })
 }
 
@@ -156,6 +164,9 @@ setInterval(() => {
   fb.text(xMax - 6, 32, timeString, false, 0, true);
   fb.font("fantasy", 16, true);
   fb.text(xMax - 6, 96, `${nextHoliday} in ${nextHolidayIn}`, false, 0, true);
+  days.forEach((day, i) => {
+    fb.text(xMax - 6, (116 + (i*20)), day, false, 0, true);
+  })
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
   fb.text(56, 64, weatherType, false, 0, false);
