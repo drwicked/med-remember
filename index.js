@@ -8,27 +8,6 @@ const moment = require('moment')
 const dirty = require('dirty')
 const say = require('say')
 
-const shortMoment = moment;
-shortMoment.locale('en', {
-  relativeTime: {
-    future: 'in %s',
-    past: '%s',
-    s:  's',
-    ss: '%ss',
-    m:  '1m',
-    mm: '%dm',
-    h:  '1h',
-    hh: '%dh',
-    d:  '1d',
-    dd: '%dd',
-    M:  '1M',
-    MM: '%dM',
-    y:  '1Y',
-    yy: '%dY'
-  }
-});
-
-
 const db = dirty('./med-remember.db')
 
 var pitft = require("pitft");
@@ -96,7 +75,7 @@ setInterval(() => {
   if (medsTook) {
     // show took meds msg
 
-    const ago = shortMoment(medsTook).fromNow();
+    const ago = moment(medsTook).fromNow();
     console.log('ago', ago)
     fb.font("fantasy", 22);
     fb.text(20, yMax - 112, ago, false, 0, false);
