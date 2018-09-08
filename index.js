@@ -40,7 +40,7 @@ const framebufferText = (text) => {
 
 setInterval(() => {
   fb.clear()
-  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}`).then((response) => {
+  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).then((response) => {
     console.log('response', response)
     const { weather: { description }, main: { temp, humidity, temp_min, temp_max } } = response;
 
