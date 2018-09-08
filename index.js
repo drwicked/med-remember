@@ -97,7 +97,6 @@ setInterval(() => {
     // show took meds msg
 
     const ago = shortMoment(medsTook).fromNow();
-    console.log('ago', ago)
     fb.font("fantasy", 22);
     fb.text(20, yMax - 112, ago, false, 0, false);
     fb.image(10, yMax - 96, "medical.png");
