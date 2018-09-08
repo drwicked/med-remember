@@ -35,7 +35,7 @@ shortMoment.updateLocale('en', {
 let button = new DashButton(process.env.DASH_MAC, null, null, 'all');
 
 const buttonPresses = dirty('./buttons.db')
-let subscription = dash.on('detected', () => {
+let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDD')
   const currentPresses = buttonPresses.get(today) || 0
   console.log('currentPresses', currentPresses)
