@@ -222,7 +222,20 @@ setInterval(() => {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
   fb.color(0, 1, 0)
-  fb.rect(200, 200, 10, 80, true);
+  const tempArray = weatherDb.get(today)
+  console.log('tempArray', tempArray)
+  const baseX = 200
+  const basey = 200
+  const maxTemp = 105
+  const barWidth = 10
+  const barPadding = 3
+  tempArray.forEach((val, i) => {
+    const x = (baseX * i) + barPadding
+    const tempPerc = Math.floor(val/maxTemp)
+    const barHeight = tempPerc * maxTemp
+    const y = baseY + (maxTemp - barHeight)
+    fb.rect(x, y, barWidth, barHeight, true);
+  })
 }, 2000);
 
 db.on('load', () => {
