@@ -222,7 +222,7 @@ setInterval(() => {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
   fb.color(0, 1, 0)
-  const tempArray = weatherDb.get(today)
+  const tempArray = weatherDb.get(moment().format('YYYYMMDD'))
   console.log('tempArray', tempArray)
   const baseX = 200
   const basey = 200
