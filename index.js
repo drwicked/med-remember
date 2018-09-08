@@ -84,7 +84,7 @@ const getWeather = async () => {
   } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).catch(err => console.log(err))
   console.log('weather', weather)
   const [{ main, icon }] = weather
-  if (!fs.existsSync(path)) {
+  if (!fs.existsSync(`./images/${icon}.png`)) {
     wget.download(`http://openweathermap.org/img/w/${icon}.png`, `images/${icon}.png`).on('end', (output) => {
       console.log('output', output);
     })
