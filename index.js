@@ -44,7 +44,9 @@ let f = 0.0;
 
 const getTimeEmoji = (time) => {
   const hour = parseInt(moment().format('HH'))
+  console.log('hour', hour)
   if (hour > 20) return '🍸';
+  return '🥃';
 }
 
 const getWeather = async () => {
