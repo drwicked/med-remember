@@ -140,7 +140,7 @@ setInterval(() => {
   fb.font("fantasy", 44, true);
   fb.text(xMax - 6, 32, timeString, false, 0, true);
   fb.font("fantasy", 16, true);
-  fb.text(xMax - 6, 64, `${nextHoliday} in ${nextHolidayIn}`, false, 0, true);
+  fb.text(xMax - 6, 96, `${nextHoliday} in ${nextHolidayIn}`, false, 0, true);
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
   fb.text(56, 64, weatherType, false, 0, false);
