@@ -140,8 +140,6 @@ setInterval(async () => {
   weatherString = await getWeather()
   days = await getDays();
 }, 120000);
-let rotation = 0.0;
-
 setInterval(() => {
   fb.clear()
   const timeString = moment().format('h:mm a');
@@ -182,13 +180,8 @@ setInterval(() => {
 
     const ago = shortMoment(medsTook).fromNow();
     fb.font("fantasy", 18);
-    if (rotation > 1) {
-      rotation = 0
-    } else {
-      rotation = rotation + 0.1
-    }
     fb.text(32, yMax - 112, ago, false, 0, false);
-    fb.image(10, yMax - 96, "medical.png", rotation);
+    fb.image(10, yMax - 96, "medical.png");
   }
   // if (parseInt(moment().format('HH')) >= 20) {
   //   fb.image(100, yMax - 96, "vodka.png");
