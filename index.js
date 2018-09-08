@@ -222,7 +222,7 @@ setInterval(() => {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
   fb.color(0, 1, 0)
-  fb.rect((xMax/2) + 10, (yMax/2) + 10, (xMax/2) - 10, (yMax/2) - 10, true);
+  fb.rect((xMax/2) + 1, yMax - 10, (xMax/2) - 10, yMax - 10, true);
 }, 2000);
 
 db.on('load', () => {
