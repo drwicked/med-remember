@@ -62,9 +62,9 @@ const token = process.env.POST_TOKEN || 'medrememberposttoken';
 
 const buttonPresses = dirty('./buttons.db')
 let subscription = button.on('detected', () => {
-  const today = moment().format('YYYYMMDD')
+  const today = moment().format('YYYYMMDDa')
   ding.play()
-  console.log('button pressed');
+  console.log('button pressed', today);
   if (buttonPresses.get(today)) {
     buttonPresses.update(today, (val) => {
       return parseInt(val || 0) + 1
