@@ -68,8 +68,7 @@ setInterval(() => {
   const timeString = moment().format('h:mm a');
   framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
   if (parseInt(moment().format('HH')) >= 20) {
-    console.log('show image');
-    fb.image(xMax/2 - 16, yMax/2, "vodka.png");
+    fb.image(xMax/2, yMax/2, "vodka.png");
   }
 }, 1000);
 
