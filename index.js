@@ -55,6 +55,7 @@ const getWeather = async () => {
   return `${Math.round(temp)}° | ${humidity}%`;
 }
 let weatherString = '';
+let msg = 'blerg';
 (async function() {
   weatherString = await getWeather();
 })()
@@ -68,10 +69,14 @@ setInterval(() => {
   const timeString = moment().format('h:mm a');
   // framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
   
-  fb.font("fantasy", 28, true);
-  fb.text(6, 24, weatherString, false, 0, false);
-  fb.text(xMax - 6, 24, timeString, false, 0, true);
-  if (db.get(moment().format('YYYYMMDD'))) {
+  fb.font("fantasy", 32, true);
+  fb.text(6, 32, weatherString, false, 0, false);
+  fb.text(xMax - 6, 32, timeString, false, 0, true);
+  const medsTook = db.get(moment().format('YYYYMMDD'))
+  if (medsTook) {
+    // show took meds msg
+
+    fb.text(xMax/2, yMax/2, moment(medsTook).fromNow(), true);
     fb.image(10, yMax - 96, "medical.png");
   }
   if (parseInt(moment().format('HH')) >= 20) {
@@ -118,7 +123,8 @@ app.get('/meds/diditake', (req, res) => {
   const took = db.get(today);
   if (took) {
     bitYes.play();
-    framebufferText(`Took meds: ${moment(took).fromNow()}`)
+    // framebufferText()
+    msg = `Took meds: ${moment(took).fromNow()}`;
     setTimeout(() => fb.clear(), 20000)
     say.speak(`meds taken ${moment(took).fromNow()}`);
     console.log('I did take meds today', took)
