@@ -40,7 +40,7 @@ const framebufferText = (text) => {
 
 let textString = '#temp :: #time'
 let f = 0.0;
-
+let medsMsg = ''
 
 const getTimeEmoji = (time) => {
   const hour = parseInt(moment().format('HH'))
@@ -55,7 +55,6 @@ const getWeather = async () => {
   return `${Math.round(temp)}° | ${humidity}%`;
 }
 let weatherString = '';
-let msg = 'blerg';
 (async function() {
   weatherString = await getWeather();
 })()
@@ -124,7 +123,7 @@ app.get('/meds/diditake', (req, res) => {
   if (took) {
     bitYes.play();
     // framebufferText()
-    msg = `Took meds: ${moment(took).fromNow()}`;
+    medsMsg = `Took meds: ${moment(took).fromNow()}`;
     setTimeout(() => fb.clear(), 20000)
     say.speak(`meds taken ${moment(took).fromNow()}`);
     console.log('I did take meds today', took)
