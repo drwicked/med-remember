@@ -69,7 +69,7 @@ setInterval(() => {
   framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
   if (parseInt(moment().format('HH')) >= 20) {
     console.log('show image');
-    fb.image(xMax/2 - 16, yMax/2 + radius * 0.50 - 16, "vodka.png");
+    fb.image(xMax/2 - 16, yMax/2, "vodka.png");
   }
 }, 1000);
 
