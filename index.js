@@ -224,7 +224,7 @@ setInterval(() => {
   // }
   const tempArray = weatherDb.get(moment().format('YYYYMMDD'))
   const baseX = 200
-  const baseY = 200
+  const baseY = 220
   const minTemp = 70
   const maxTemp = 105
   const barWidth = 10
