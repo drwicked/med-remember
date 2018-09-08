@@ -80,7 +80,6 @@ const getWeather = async () => {
       sys: { sunrise, sunset },
     } 
   } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`)
-  console.log('temp, humidity', temp, humidity)
   weatherData = {
     weatherType: main,
     windSpeed: speed,
@@ -89,6 +88,7 @@ const getWeather = async () => {
     temp_min,
     temp_max,
   }
+  console.log('weatherData', weatherData)
   return `${Math.round(temp)}° | ${humidity}%`;
 }
 let weatherString = '';
