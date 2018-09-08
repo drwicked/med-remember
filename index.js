@@ -39,7 +39,7 @@ let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDD')
   buttonPresses.update(today, (val) => {
     console.log('val', val)
-    return parseInt(val) + 1
+    return parseInt(val || 0) + 1
   }, (data) => console.log(data));
 });
 
