@@ -138,14 +138,12 @@ let days = [];
 (async function() {
   weatherString = await getWeather();
   days = await getDays();
-  console.log('days', days)
 })()
 
 console.log('weatherString', weatherString)
 setInterval(async () => {
   weatherString = await getWeather()
   days = await getDays();
-  console.log('days', days)
 }, 120000);
 setInterval(() => {
   fb.clear()
