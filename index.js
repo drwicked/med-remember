@@ -115,9 +115,7 @@ const getWeather = async () => {
 
 const getDays = async () => {
   await axios.get('http://nationaldaycalendar.com/latest-posts/').then(({ data }) => {
-    console.log('data', data)
     var today = $('.post', data).first();
-    console.log('today', today)
     var nationalDays = $('h2.entry-title a', today).text().split(' – ');
     nationalDays.shift();
     console.log('nationalDays', nationalDays)
