@@ -121,7 +121,7 @@ setInterval(() => {
   fb.text(xMax - 6, 32, timeString, false, 0, true);
   fb.font("fantasy", 16, true);
   fb.text(6, 58, weatherType, false, 0, false);
-  fb.text(96, 88, windSpeed, false, 0, false);
+  fb.text(110, 88, windSpeed, false, 0, false);
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
   fb.font("fantasy", 12, true);
   fb.text(8, 104, ' lo       hi', false, 0, false);
@@ -130,7 +130,7 @@ setInterval(() => {
     // show took meds msg
 
     const ago = shortMoment(medsTook).fromNow();
-    fb.font("fantasy", 22);
+    fb.font("fantasy", 18);
     fb.text(26, yMax - 112, ago, false, 0, false);
     fb.image(10, yMax - 96, "medical.png");
   }
