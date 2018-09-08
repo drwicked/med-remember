@@ -38,15 +38,28 @@ const framebufferText = (text) => {
   fb.text(xMax, yMax/2, text, false, 0, true);
 }
 
-setInterval(() => {
-  fb.clear()
-  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).then((response) => {
+let textString = '#temp° :: #time'
+let f = 0.0;
+
+
+const getWeather = async () => {
+  await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).then((response) => {
     console.log('response', response)
     const { weather, main: { temp = '0', humidity, temp_min, temp_max } } = response;
     console.log('weather', weather)
-    framebufferText(`${temp}° :: ${moment().format('h:mm a')}`)
+    return { temp };
+  }).catch(function (error) {
+    console.log(error);
+    return error;
   })
-}, 15000);
+}
+const weatherData = getWeather();
+console.log('weatherData', weatherData)
+setInterval(() => {
+  fb.clear()
+    framebufferText(textString.replace('#temp', f).replace('#temp', temp))
+  
+}, 1000);
 
 db.on('load', () => {
   console.log('database loaded')
