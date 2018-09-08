@@ -66,7 +66,11 @@ setInterval(async () => {
 setInterval(() => {
   fb.clear()
   const timeString = moment().format('h:mm a');
-  framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
+  // framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
+  
+  fb.font("fantasy", 28, true);
+  fb.text(xMax - 6, 6, timeString, false, 0, true);
+  fb.text(6, 6, weatherString, false, 0, true);
   if (db.get(moment().format('YYYYMMDD'))) {
     fb.image(10, yMax - 96, "medical.png");
   }
