@@ -57,8 +57,7 @@ const weatherData = getWeather();
 console.log('weatherData', weatherData)
 setInterval(() => {
   fb.clear()
-    framebufferText(textString.replace('#temp', f).replace('#temp', temp))
-  
+  framebufferText(textString.replace('#temp', f).replace('#time', moment().format('h:mm a'))
 }, 1000);
 
 db.on('load', () => {
