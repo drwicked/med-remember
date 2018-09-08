@@ -229,8 +229,9 @@ setInterval(() => {
   const barWidth = 10
   const barPadding = 3
   tempArray.forEach((val, i) => {
-    const x = (baseX * i) + barPadding
+    const x = baseX + ((barWidth + barPadding) * i)
     const tempPerc = Math.floor(val/maxTemp)
+    console.log('tempPerc', tempPerc)
     const barHeight = tempPerc * maxTemp
     const y = baseY + (maxTemp - barHeight)
     console.log('x, y, barWidth, barHeight', x, y, barWidth, barHeight)
