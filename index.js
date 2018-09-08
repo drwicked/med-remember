@@ -121,6 +121,8 @@ setInterval(() => {
   fb.text(xMax - 6, 32, timeString, false, 0, true);
   fb.font("fantasy", 16, true);
   fb.text(6, 58, weatherType, false, 0, false);
+  fb.text(6, 88, `${Math.round(temp_min)} / ${Math.round(temp_max)}`, false, 0, false);
+  fb.text(6, 128, windSpeed, false, 0, false);
   const medsTook = db.get(moment().format('YYYYMMDD'))
   if (medsTook) {
     // show took meds msg
