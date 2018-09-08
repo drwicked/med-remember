@@ -10,10 +10,10 @@ const say = require('say')
 const wget = require('wget-improved')
 const fs = require('fs')
 const $ = require('cheerio')
-const DashButton = require('dash-button')
+const DashButton = require('node-dash-button')
 
 const shortMoment = moment;
-shortMoment.locale('en', {
+shortMoment.updateLocale('en', {
   relativeTime: {
     future: 'in %s',
     past: '%s',
@@ -32,14 +32,15 @@ shortMoment.locale('en', {
   }
 });
 
-let button = new DashButton(process.env.DASH_MAC);
+let button = new DashButton(process.env.DASH_MAC, null, null, 'all');
 
 const buttonPresses = dirty('./med-remember.db')
-let subscription = button.addListener(async () => {
-  const today = moment().format('YYYYMMDD')
-  const currentPresses = buttonPresses.get(today) || 0
-  buttonPresses.set(currentPresses + 1, moment().format());
-});
+// let subscription = dash.on('detected', () => {
+//   const today = moment().format('YYYYMMDD')
+//   const currentPresses = buttonPresses.get(today) || 0
+//   console.log('currentPresses', currentPresses)
+//   buttonPresses.set(currentPresses + 1, moment().format());
+// });
 
 const db = dirty('./med-remember.db')
 
