@@ -45,7 +45,6 @@ var fb = pitft("/dev/fb1"); // Returns a framebuffer in direct mode.  See the cl
 
 var xMax = fb.size().width;
 var yMax = fb.size().height;
-fb.color(1, 1, 1);
 
 // for (var n=0; n<1000; n++) {
 //     var x = Math.random() * (xMax + 32) - 16;
@@ -172,6 +171,7 @@ setInterval(async () => {
 }, 120000);
 setInterval(() => {
   fb.clear()
+  fb.color(1, 1, 1);
   const timeString = moment().format('h:mm a');
   // framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
   const {
@@ -222,7 +222,7 @@ setInterval(() => {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
   fb.color(0, 1, 0)
-  fb.rect((xMax/2) + 1, yMax - 120, (xMax/2) - 80, yMax - 10, true);
+  fb.rect(200, yMax - 120, 210, yMax - 10, true);
 }, 2000);
 
 db.on('load', () => {
