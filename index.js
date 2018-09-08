@@ -87,6 +87,8 @@ const getWeather = async () => {
     humidity,
     temp_min,
     temp_max,
+    sunrise,
+    sunset,
   }
   console.log('weatherData', weatherData)
   return `${Math.round(temp)}° | ${humidity}%`;
@@ -111,11 +113,14 @@ setInterval(() => {
     humidity,
     temp_min,
     temp_max,
+    sunrise,
+    sunset,
   } = weatherData;
   fb.font("fantasy", 32, true);
   fb.text(6, 32, weatherString, false, 0, false);
-  fb.text(6, 48, weatherType, false, 0, false);
   fb.text(xMax - 6, 32, timeString, false, 0, true);
+  fb.font("fantasy", 20, true);
+  fb.text(6, 48, weatherType, false, 0, false);
   const medsTook = db.get(moment().format('YYYYMMDD'))
   if (medsTook) {
     // show took meds msg
