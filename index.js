@@ -39,7 +39,9 @@ let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDD')
   const currentPresses = buttonPresses.get(today) || 0
   console.log('currentPresses', currentPresses)
-  buttonPresses.set(currentPresses + 1, moment().format());
+  const increment = parseInt(currentPresses) + 1
+  console.log('increment', increment)
+  buttonPresses.set(increment, moment().format());
 });
 
 const db = dirty('./med-remember.db')
