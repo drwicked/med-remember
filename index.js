@@ -37,10 +37,13 @@ let button = new DashButton(process.env.DASH_MAC, null, null, 'all');
 const buttonPresses = dirty('./buttons.db')
 let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDD')
-  buttonPresses.update(today, (val) => {
-    console.log('val', val)
-    return parseInt(val || 0) + 1
-  }, (data) => console.log(data));
+  if (buttonPresses.get(today)) {
+    buttonPresses.update(today, (val) => {
+      return parseInt(val || 0) + 1
+    });
+  } else {
+    buttonPresses.set(today, 1)
+  }
 });
 
 const db = dirty('./med-remember.db')
