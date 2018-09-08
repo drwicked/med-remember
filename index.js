@@ -8,7 +8,7 @@ const moment = require('moment')
 const dirty = require('dirty')
 const say = require('say')
 
-const shortMoment = moment();
+const shortMoment = moment;
 shortMoment.locale('en', {
   relativeTime: {
     future: 'in %s',
