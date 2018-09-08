@@ -39,6 +39,10 @@ const framebufferText = (text) => {
   setTimeout(() => fb.clear(), 20000)
 }
 
+setInterval(() => {
+  framebufferText(moment().format('HHmm a'))
+}, 15000);
+
 db.on('load', () => {
   console.log('database loaded')
   say.speak('Hello!')

@@ -28,3 +28,4 @@ Apps on now.sh/zeit.co have [limited persistence](https://zeit.co/docs/other/faq
 
 [Marak/say.js: TTS (text to speech) for node.js. send text from node.js to your speakers.](https://github.com/Marak/say.js/)
 [roccomuso/node-aplay: ALSA aplay wrapper for Node.js](https://github.com/roccomuso/node-aplay)
+[vesteraas/node-pitft: A C++ extension for node.js that gives javascript access to the PiTFT framebuffer](https://github.com/vesteraas/node-pitft)

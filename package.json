@@ -22,9 +22,8 @@
     "ws": "^6.0.0"
   },
   "scripts": {
-    "start": "yarn serve & yarn dev",
+    "start": "node index.js",
     "serve": "nodemon index.js",
-    "build": "webpack",
     "dev": "webpack-dev-server --mode development",
     "deploy": "now --dotenv --public && clipboard"
   },
