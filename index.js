@@ -235,6 +235,8 @@ setInterval(() => {
     const barHeight = Math.floor(tempPerc * maxTemp)
     const y = baseY + (maxTemp - barHeight)
     console.log('x, y, barWidth, barHeight', x, y, barWidth, barHeight)
+    fb.font("fantasy", 10);
+    fb.text(x, y, val, false, 0, false);
     fb.rect(x, y, barWidth, barHeight, true);
   })
 }, 2000);
