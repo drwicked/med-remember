@@ -133,6 +133,7 @@ const getWeather = async () => {
       return val
     })
   } else {
+    console.log('today init', temp);
     weatherDb.set(today, [temp])
   }
   nextHoliday = moment(moment().nextHoliday(1)).isHoliday();
