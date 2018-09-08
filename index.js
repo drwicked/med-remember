@@ -69,10 +69,26 @@ const getTimeEmoji = (time) => {
   if (hour > 20) return '🍸';
   return '🥃';
 }
+const weatherData = {}
 
 const getWeather = async () => {
-  const { data: { weather, main: { temp, humidity } } } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`)
+  const {
+    data: {
+      weather: { main },
+      wind: { speed },
+      main: { temp, humidity, temp_min, temp_max },
+      sys: { sunrise, sunset },
+    } 
+  } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`)
   console.log('temp, humidity', temp, humidity)
+  weatherData = {
+    weatherType: main,
+    windSpeed: speed,
+    temp,
+    humidity,
+    temp_min,
+    temp_max,
+  }
   return `${Math.round(temp)}° | ${humidity}%`;
 }
 let weatherString = '';
@@ -88,9 +104,17 @@ setInterval(() => {
   fb.clear()
   const timeString = moment().format('h:mm a');
   // framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
-  
+  const {
+    weatherType,
+    windSpeed,
+    temp,
+    humidity,
+    temp_min,
+    temp_max,
+  } = weatherData;
   fb.font("fantasy", 32, true);
   fb.text(6, 32, weatherString, false, 0, false);
+  fb.text(6, 48, weatherType, false, 0, false);
   fb.text(xMax - 6, 32, timeString, false, 0, true);
   const medsTook = db.get(moment().format('YYYYMMDD'))
   if (medsTook) {
