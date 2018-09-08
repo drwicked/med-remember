@@ -69,7 +69,7 @@ const getTimeEmoji = (time) => {
   if (hour > 20) return '🍸';
   return '🥃';
 }
-const weatherData = {}
+let weatherData = {}
 
 const getWeather = async () => {
   const {
