@@ -10,6 +10,7 @@ const say = require('say')
 const wget = require('wget-improved')
 const fs = require('fs')
 const $ = require('cheerio')
+const DashButton = require('dash-button')
 
 const shortMoment = moment;
 shortMoment.locale('en', {
@@ -31,6 +32,14 @@ shortMoment.locale('en', {
   }
 });
 
+let button = new DashButton(process.env.DASH_MAC);
+
+const buttonPresses = dirty('./med-remember.db')
+let subscription = button.addListener(async () => {
+  const today = moment().format('YYYYMMDD')
+  const currentPresses = buttonPresses.get(today) || 0
+  buttonPresses.set(currentPresses + 1, moment().format());
+});
 
 const db = dirty('./med-remember.db')
 
@@ -170,7 +179,7 @@ setInterval(() => {
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
   fb.text(56, 64, weatherType, false, 0, false);
   fb.image(6, 34, icon);
-  fb.text(110, 88, windSpeed, false, 0, false);
+  fb.text(110, 88, `${windSpeed}mph`, false, 0, false);
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
   fb.font("fantasy", 12, true);
   fb.text(8, 104, ' lo        hi', false, 0, false);
