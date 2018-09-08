@@ -122,7 +122,7 @@ const toTitleCase = (phrase) => {
 };
 
 const getDays = async () => {
-  await axios.get('http://nationaldaycalendar.com/latest-posts/').then(({ data }) => {
+  return await axios.get('http://nationaldaycalendar.com/latest-posts/').then(({ data }) => {
     var today = $('.post', data).first();
     var nationalDays = $('h2.entry-title a', today).text().split(' – ');
     nationalDays.shift();
