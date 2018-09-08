@@ -74,7 +74,7 @@ let weatherData = {}
 const getWeather = async () => {
   const {
     data: {
-      weather: { main },
+      weather: [{ main }],
       wind: { speed },
       main: { temp, humidity, temp_min, temp_max },
       sys: { sunrise, sunset },
