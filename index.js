@@ -124,17 +124,6 @@ const getWeather = async () => {
     icon: `./images/${icon}.png`
   }
   console.log('weatherData', weatherData)
-  const today = moment().format('YYYYMMDD');
-  if (weatherDb.get(today)) {
-    weatherDb.update(today, (val) => {
-      val.push(temp)
-      console.log('weatherdb updated', val)
-      return val
-    })
-  } else {
-    console.log('today init', temp);
-    weatherDb.set(today, [temp])
-  }
   nextHoliday = moment(moment().nextHoliday(1)).isHoliday();
   nextHolidayIn = moment().nextHoliday(1).fromNow()
   return `${Math.round(temp)}° | ${humidity}%`;
@@ -165,6 +154,18 @@ let days = [];
   days = await getDays();
 })()
 
+setInterval(async () => {
+  const today = moment().format('YYYYMMDD');
+  if (weatherDb.get(today)) {
+    weatherDb.update(today, (val) => {
+      val.push(temp)
+      console.log('weatherdb updated', val)
+      return val
+    })
+  } else {
+    weatherDb.set(today, [temp])
+  }
+}, 600000);
 setInterval(async () => {
   weatherString = await getWeather()
   days = await getDays();
@@ -231,10 +232,8 @@ setInterval(() => {
   tempArray.forEach((val, i) => {
     const x = baseX + ((barWidth + barPadding) * i)
     const tempPerc = (val - minTemp)/(maxTemp - minTemp)
-    console.log('tempPerc', tempPerc)
     const barHeight = Math.floor(tempPerc * maxTemp)
     const y = baseY + (maxTemp - barHeight)
-    console.log('x, y, barWidth, barHeight', x, y, barWidth, barHeight)
     fb.font("fantasy", 10);
     fb.color(1, 1, 1)
     fb.text(x - 2, y - 6, Math.floor(val), false, 0, false);
