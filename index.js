@@ -183,9 +183,9 @@ setInterval(() => {
     fb.text(32, yMax - 112, ago, false, 0, false);
     fb.image(10, yMax - 96, "medical.png");
   }
-  if (parseInt(moment().format('HH')) >= 20) {
-    fb.image(100, yMax - 96, "vodka.png");
-  }
+  // if (parseInt(moment().format('HH')) >= 20) {
+  //   fb.image(100, yMax - 96, "vodka.png");
+  // }
 }, 2000);
 
 db.on('load', () => {
