@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const Sound = require('node-aplay')
 const app = express()
 const moment = require('moment-holiday')
+require("moment-duration-format")(moment);
 const dirty = require('dirty')
 const say = require('say')
 const wget = require('wget-improved')
@@ -192,8 +193,8 @@ setInterval(() => {
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
   fb.font("fantasy", 12, true);
   fb.text(8, 104, ' lo        hi', false, 0, false);
-  const uptime = process.uptime();
-  fb.text(8, 134, uptime, false, 0, false);
+  const uptimeMin = Math.round(process.uptime() / 60);
+  fb.text(8, 134, uptimeMin, false, 0, false);
   const medsTook = db.get(moment().format('YYYYMMDD'))
   if (medsTook) {
     // show took meds msg
