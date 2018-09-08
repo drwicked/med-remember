@@ -74,12 +74,14 @@ let weatherData = {}
 const getWeather = async () => {
   const {
     data: {
-      weather: [{ main }],
+      weather,
       wind: { speed },
       main: { temp, humidity, temp_min, temp_max },
       sys: { sunrise, sunset },
     } 
   } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).catch(err => console.log(err))
+  console.log('weather', weather)
+  const [{ main }] = weather
   weatherData = {
     weatherType: main,
     windSpeed: speed,
