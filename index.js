@@ -64,6 +64,7 @@ const buttonPresses = dirty('./buttons.db')
 let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDD')
   ding.play()
+  console.log('button pressed');
   if (buttonPresses.get(today)) {
     buttonPresses.update(today, (val) => {
       return parseInt(val || 0) + 1
