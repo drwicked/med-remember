@@ -188,7 +188,7 @@ setInterval(() => {
       rotation = rotation + 0.1
     }
     fb.text(32, yMax - 112, ago, false, 0, false);
-    fb.image(10, yMax - 96, "medical.png");
+    fb.image(10, yMax - 96, "medical.png", false, rotation);
   }
   // if (parseInt(moment().format('HH')) >= 20) {
   //   fb.image(100, yMax - 96, "vodka.png");
