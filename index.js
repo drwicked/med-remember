@@ -45,19 +45,21 @@ let f = 0.0;
 const getWeather = async () => {
   await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).then((response) => {
     console.log('response', response)
-    const { weather, main: { temp } } = response.data;
+    const { weather, main: { temp, humidity } } = response.data;
     console.log('weather', weather)
-    return { temp };
+    return `${temp}° - ${humidity}%`;
   }).catch(function (error) {
     console.log(error);
     return error;
   })
 }
-const weatherData = getWeather();
-console.log('weatherData', weatherData)
+let weatherString = getWeather();
+setInterval(() => {
+  weatherString = getWeather()
+}, 1000);
 setInterval(() => {
   fb.clear()
-  framebufferText(textString.replace('#temp', f).replace('#time', moment().format('h:mm a') ))
+  framebufferText(textString.replace('#temp', weatherString).replace('#time', moment().format('h:mm a') ))
 }, 1000);
 
 db.on('load', () => {
