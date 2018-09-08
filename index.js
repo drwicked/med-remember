@@ -81,7 +81,7 @@ const getWeather = async () => {
     } 
   } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`).catch(err => console.log(err))
   console.log('weather', weather)
-  const [{ main }] = weather
+  const [{ main, icon }] = weather
   weatherData = {
     weatherType: main,
     windSpeed: speed,
@@ -91,6 +91,7 @@ const getWeather = async () => {
     temp_max,
     sunrise,
     sunset,
+    icon: `http://openweathermap.org/img/w/${icon}.png`
   }
   console.log('weatherData', weatherData)
   return `${Math.round(temp)}° | ${humidity}%`;
@@ -117,6 +118,7 @@ setInterval(() => {
     temp_max,
     sunrise,
     sunset,
+    icon,
   } = weatherData;
   fb.font("fantasy", 32, true);
   fb.text(6, 32, weatherString, false, 0, false);
@@ -124,7 +126,8 @@ setInterval(() => {
   fb.font("fantasy", 16, true);
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 58, sunsetTime, false, 0, true);
-  fb.text(6, 58, weatherType, false, 0, false);
+  fb.text(36, 58, weatherType, false, 0, false);
+  fb.image(6, 58, icon);
   fb.text(110, 88, windSpeed, false, 0, false);
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
   fb.font("fantasy", 12, true);
