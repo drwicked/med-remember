@@ -52,10 +52,13 @@ const getWeather = async () => {
     return error;
   })
 }
-let weatherString = await getWeather();
+let weatherString = '0 - 0';
+const getInitialWeather = async () => {
+  return await getWeather
+}()
 console.log('weatherString', weatherString)
-setInterval(() => {
-  weatherString = getWeather()
+setInterval(async () => {
+  weatherString = await getWeather()
 }, 30000);
 setInterval(() => {
   fb.clear()
