@@ -4,7 +4,7 @@ const axios = require('axios')
 const bodyParser = require('body-parser')
 const Sound = require('node-aplay')
 const app = express()
-const moment = require('moment')
+const moment = require('moment-holiday')
 const dirty = require('dirty')
 const say = require('say')
 const wget = require('wget-improved')
@@ -133,6 +133,9 @@ setInterval(() => {
   fb.text(6, 32, weatherString, false, 0, false);
   fb.font("fantasy", 44, true);
   fb.text(xMax - 6, 32, timeString, false, 0, true);
+  const nextHoliday = moment().nextHoliday(1);
+  console.log('nextHoliday', nextHoliday)
+  fb.text(xMax - 6, 64, nextHoliday, false, 0, true);
   fb.font("fantasy", 16, true);
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
