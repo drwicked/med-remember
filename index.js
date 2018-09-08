@@ -202,7 +202,7 @@ setInterval(() => {
     fb.image(10, yMax - 96, "medical.png");
   }
   fb.font("fantasy", 44, true);
-  fb.text(xMax - 36, yMax - 20, (buttonPresses.get(moment().format('YYYYMMDDa')) || 0), false, 0, true);
+  fb.text(xMax - 10, yMax - 20, (buttonPresses.get(moment().format('YYYYMMDDa')) || 0), false, 0, true);
   // if (parseInt(moment().format('HH')) >= 20) {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
