@@ -83,7 +83,7 @@ let weatherString = '';
 console.log('weatherString', weatherString)
 setInterval(async () => {
   weatherString = await getWeather()
-}, 60000);
+}, 120000);
 setInterval(() => {
   fb.clear()
   const timeString = moment().format('h:mm a');
@@ -96,10 +96,10 @@ setInterval(() => {
   if (medsTook) {
     // show took meds msg
 
-    fb.font("fantasy", 24, true);
+    fb.font("fantasy", 24);
     const ago = shortMoment(medsTook).fromNow();
     console.log('ago', ago)
-    fb.text(10, yMax - 112, ago, true);
+    fb.text(15, yMax - 112, ago, true, 0, true);
     fb.image(10, yMax - 96, "medical.png");
   }
   if (parseInt(moment().format('HH')) >= 20) {
