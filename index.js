@@ -47,7 +47,7 @@ const getWeather = async () => {
   console.log('temp, humidity', temp, humidity)
   return `${Math.round(temp)}° | ${humidity}%`;
 }
-let weatherString = ''
+let weatherString = '';
 (async function() {
   weatherString = await getWeather();
 })()
