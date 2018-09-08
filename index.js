@@ -34,13 +34,13 @@ shortMoment.updateLocale('en', {
 
 let button = new DashButton(process.env.DASH_MAC, null, null, 'all');
 
-const buttonPresses = dirty('./med-remember.db')
-// let subscription = dash.on('detected', () => {
-//   const today = moment().format('YYYYMMDD')
-//   const currentPresses = buttonPresses.get(today) || 0
-//   console.log('currentPresses', currentPresses)
-//   buttonPresses.set(currentPresses + 1, moment().format());
-// });
+const buttonPresses = dirty('./buttons.db')
+let subscription = dash.on('detected', () => {
+  const today = moment().format('YYYYMMDD')
+  const currentPresses = buttonPresses.get(today) || 0
+  console.log('currentPresses', currentPresses)
+  buttonPresses.set(currentPresses + 1, moment().format());
+});
 
 const db = dirty('./med-remember.db')
 
