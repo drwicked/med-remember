@@ -72,6 +72,7 @@ const getTimeEmoji = (time) => {
   return '🥃';
 }
 let weatherData = {}
+let nextHoliday = {}
 
 const getWeather = async () => {
   const {
@@ -103,6 +104,11 @@ const getWeather = async () => {
     icon: `./images/${icon}.png`
   }
   console.log('weatherData', weatherData)
+
+  nextHoliday = moment(moment().nextHoliday(1)).isHoliday();
+  nextHolidayIn = moment().nextHoliday(1).fromNow()
+  console.log('nextHoliday', nextHoliday)
+  console.log('nextHolidayIn', nextHolidayIn)
   return `${Math.round(temp)}° | ${humidity}%`;
 }
 let weatherString = '';
@@ -133,6 +139,7 @@ setInterval(() => {
   fb.text(6, 32, weatherString, false, 0, false);
   fb.font("fantasy", 44, true);
   fb.text(xMax - 6, 32, timeString, false, 0, true);
+  fb.text(xMax - 6, 64, nextHoliday, false, 0, true);
   fb.font("fantasy", 16, true);
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
