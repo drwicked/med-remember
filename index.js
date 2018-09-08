@@ -99,6 +99,7 @@ const getWeather = async () => {
     data: {
       weather,
       wind: { speed },
+      rain,
       main: { temp, humidity, temp_min, temp_max },
       sys: { sunrise, sunset },
     } 
@@ -121,6 +122,7 @@ const getWeather = async () => {
     temp_max,
     sunrise,
     sunset,
+    rain,
     icon: `./images/${icon}.png`
   }
   console.log('weatherData', weatherData)
@@ -185,6 +187,7 @@ setInterval(() => {
     sunrise,
     sunset,
     icon,
+    rain,
   } = weatherData;
   fb.font("fantasy", 32, true);
   fb.text(6, 32, weatherString, false, 0, false);
@@ -200,6 +203,7 @@ setInterval(() => {
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
   fb.text(56, 64, weatherType, false, 0, false);
+  fb.text(106, 64, `${Object.keys(rain)[0]} ${Object.values(rain)[0]}`, false, 0, false);
   fb.image(6, 34, icon);
   fb.text(110, 88, `${windSpeed}mph`, false, 0, false);
   fb.text(6, 88, `${Math.round(temp_min)}° / ${Math.round(temp_max)}°`, false, 0, false);
