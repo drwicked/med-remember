@@ -193,6 +193,9 @@ setInterval(() => {
     fb.text(32, yMax - 112, ago, false, 0, false);
     fb.image(10, yMax - 96, "medical.png");
   }
+  const today = moment().format('YYYYMMDD')
+  const currentPresses = buttonPresses.get(today)
+  fb.text(xMax - 16, yMax - 16, currentPresses, false, 0, false);
   // if (parseInt(moment().format('HH')) >= 20) {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
