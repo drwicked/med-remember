@@ -42,6 +42,11 @@ let textString = '#temp :: #time'
 let f = 0.0;
 
 
+const getTimeEmoji = (time) => {
+  const hour = parseInt(moment().format('HH'))
+  if (hour > 20) return '🍸';
+}
+
 const getWeather = async () => {
   const { data: { weather, main: { temp, humidity } } } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=${process.env.OWM_TOKEN}&units=imperial`)
   console.log('temp, humidity', temp, humidity)
@@ -58,7 +63,9 @@ setInterval(async () => {
 }, 30000);
 setInterval(() => {
   fb.clear()
-  framebufferText(textString.replace('#temp', weatherString).replace('#time', moment().format('h:mm a') ))
+  const timeEmoji = getTimeEmoji()
+  const timeString = `${moment().format('h:mm a')} ${timeEmoji}`;
+  framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
 }, 1000);
 
 db.on('load', () => {
