@@ -52,7 +52,8 @@ const getWeather = async () => {
     return error;
   })
 }
-let weatherString = getWeather();
+let weatherString = await getWeather();
+console.log('weatherString', weatherString)
 setInterval(() => {
   weatherString = getWeather()
 }, 30000);
