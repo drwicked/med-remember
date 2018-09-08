@@ -165,7 +165,7 @@ setInterval(() => {
   fb.font("fantasy", 32, true);
   fb.text(6, 32, weatherString, false, 0, false);
   fb.font("fantasy", 44, true);
-  fb.text(xMax - 6, 32, timeString, false, 0, true);
+  fb.text(xMax - 6, 35, timeString, false, 0, true);
   fb.font("fantasy", 16, true);
   fb.text(xMax - 6, 96, `${nextHoliday} in ${nextHolidayIn}`, false, 0, true);
   days.forEach((day, i) => {
