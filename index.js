@@ -67,11 +67,11 @@ setInterval(() => {
   fb.clear()
   const timeString = moment().format('h:mm a');
   framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
-  if (parseInt(moment().format('HH')) >= 20) {
-    fb.image(10, yMax - 96, "vodka.png");
-  }
   if (db.get(moment().format('YYYYMMDD'))) {
-    fb.image(144, yMax - 96, "medical.png");
+    fb.image(10, yMax - 96, "medical.png");
+  }
+  if (parseInt(moment().format('HH')) >= 20) {
+    fb.image(100, yMax - 96, "vodka.png");
   }
 }, 1000);
 
