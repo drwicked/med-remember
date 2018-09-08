@@ -34,18 +34,6 @@ shortMoment.updateLocale('en', {
 
 let button = new DashButton(process.env.DASH_MAC, null, null, 'all');
 
-const buttonPresses = dirty('./buttons.db')
-let subscription = button.on('detected', () => {
-  const today = moment().format('YYYYMMDD')
-  if (buttonPresses.get(today)) {
-    buttonPresses.update(today, (val) => {
-      return parseInt(val || 0) + 1
-    });
-  } else {
-    buttonPresses.set(today, 1)
-  }
-});
-
 const db = dirty('./med-remember.db')
 
 var pitft = require("pitft");
@@ -67,8 +55,23 @@ fb.color(1, 1, 1);
 
 const bitYes = new Sound('./sounds/yes44.wav')
 const bitNo = new Sound('./sounds/no44.wav')
+const ding = new Sound('./sounds/ding.wav')
 
 const token = process.env.POST_TOKEN || 'medrememberposttoken';
+
+
+const buttonPresses = dirty('./buttons.db')
+let subscription = button.on('detected', () => {
+  const today = moment().format('YYYYMMDD')
+  ding.play()
+  if (buttonPresses.get(today)) {
+    buttonPresses.update(today, (val) => {
+      return parseInt(val || 0) + 1
+    });
+  } else {
+    buttonPresses.set(today, 1)
+  }
+});
 
 const framebufferText = (text) => {
   fb.clear();
