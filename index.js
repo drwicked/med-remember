@@ -69,7 +69,7 @@ setInterval(() => {
   // framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
   
   fb.font("fantasy", 28, true);
-  fb.text(6, 24, weatherString, true);
+  fb.text(6, 24, weatherString, false, 0, false);
   fb.text(xMax - 6, 24, timeString, false, 0, true);
   if (db.get(moment().format('YYYYMMDD'))) {
     fb.image(10, yMax - 96, "medical.png");
