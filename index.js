@@ -70,6 +70,9 @@ setInterval(() => {
   if (parseInt(moment().format('HH')) >= 20) {
     fb.image(10, yMax/2, "vodka.png");
   }
+  if (db.get(today)) {
+    fb.image(144, yMax/2, "medical.png");
+  }
 }, 1000);
 
 db.on('load', () => {
