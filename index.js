@@ -227,7 +227,7 @@ setInterval(() => {
 
     const ago = shortMoment(medsTook).fromNow();
     fb.font("fantasy", 18);
-    fb.text(32, yMax - 112, ago, false, 0, false);
+    fb.text(32, yMax - 112, ago, false, 0.25, false);
     fb.image(10, yMax - 96, "./images/pill.png");
   }
   fb.font("fantasy", 44, true);
