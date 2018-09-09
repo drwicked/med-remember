@@ -195,11 +195,13 @@ setInterval(() => {
   fb.text(xMax - 6, 35, timeString, false, 0, true);
   fb.font("fantasy", 16, true);
   fb.text(xMax - 6, 96, `${nextHoliday} in ${nextHolidayIn}`, false, 0, true);
+  fb.font("fantasy", 12, true);
   days.forEach((day, i) => {
-    const maxLength = 26
+    const maxLength = 36
     const dayString = `${day.substring(0, Math.min(maxLength, day.length))}${day.length > maxLength ? '...' : ''}`
     fb.text(xMax - 6, (128 + (i*20)), dayString, false, 0, true);
   })
+  fb.font("fantasy", 16, true);
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
   let weatherOffsetY = 64
