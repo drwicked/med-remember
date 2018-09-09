@@ -62,16 +62,23 @@ const token = process.env.POST_TOKEN || 'medrememberposttoken';
 
 const weatherDb = dirty('./weather.db')
 const buttonPresses = dirty('./buttons.db')
+let lastPressed = 0;
 let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDDa')
   ding.play()
   console.log('button pressed', today);
-  if (buttonPresses.get(today)) {
-    buttonPresses.update(today, (val) => {
-      return parseInt(val || 0) + 1
-    });
+  const now = moment().valueOf()
+  if ((now - lastPressed) > 60000) {
+    lastPressed = now
+    if (buttonPresses.get(today)) {
+      buttonPresses.update(today, (val) => {
+        return parseInt(val || 0) + 1
+      });
+    } else {
+      buttonPresses.set(today, 1)
+    }
   } else {
-    buttonPresses.set(today, 1)
+    console.log('pressed too recently');
   }
 });
 
