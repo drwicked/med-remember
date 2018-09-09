@@ -197,7 +197,6 @@ setInterval(() => {
   fb.text(xMax - 6, 96, `${nextHoliday} in ${nextHolidayIn}`, false, 0, true);
   fb.font("fantasy", 12, true);
   days.forEach((day, i) => {
-    const maxLength = 36
     const dayString = `${day.substring(0, Math.min(maxLength, day.length))}${day.length > maxLength ? '...' : ''}`
     fb.text(xMax - 6, (128 + (i*20)), dayString, false, 0, true);
   })
@@ -228,7 +227,7 @@ setInterval(() => {
     const ago = shortMoment(medsTook).fromNow();
     fb.font("fantasy", 18);
     fb.text(32, yMax - 112, ago, false, 0, false);
-    fb.image(10, yMax - 96, "medical.png");
+    fb.image(10, yMax - 96, "./images/pill.png");
   }
   fb.font("fantasy", 44, true);
   fb.text(xMax - 10, yMax - 20, (buttonPresses.get(moment().format('YYYYMMDDa')) || 0), false, 0, true);
