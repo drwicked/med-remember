@@ -62,6 +62,7 @@ const token = process.env.POST_TOKEN || 'medrememberposttoken';
 
 const weatherDb = dirty('./weather.db')
 const buttonPresses = dirty('./buttons.db')
+const frivolousNatlDays = dirty('./natldays.db')
 let lastPressed = 0;
 let subscription = button.on('detected', () => {
   const today = moment().format('YYYYMMDDa')
@@ -77,6 +78,7 @@ let subscription = button.on('detected', () => {
     } else {
       buttonPresses.set(today, 1)
     }
+    buttonPresses.set('lastPressed', lastPressed)
   } else {
     console.log('pressed too recently')
   }
@@ -85,15 +87,6 @@ let subscription = button.on('detected', () => {
 let textString = '#temp :: #time'
 let f = 0.0;
 let medsMsg = ''
-
-const getTimeEmoji = (time) => {
-  const hour = parseInt(moment().format('HH'))
-  console.log('hour', hour)
-  if (hour > 20) return '🍸';
-  return '🥃';
-}
-let weatherData = {}
-let nextHoliday = {}
 
 const getWeather = async () => {
   const {
@@ -105,14 +98,12 @@ const getWeather = async () => {
       sys: { sunrise, sunset },
     } 
   } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=78705,us&appid=${process.env.OWM_TOKEN}&units=imperial`).catch(err => console.log(err))
-  console.log('weather', weather)
   const [{ main, icon }] = weather
   if (!fs.existsSync(`./images/${icon}.png`)) {
-    wget.download(`http://openweathermap.org/img/w/${icon}.png`, `images/${icon}.png`).on('end', (output) => {
-      console.log('output', output);
-    })
+    console.log(`:: get weather icon ${icon}`)
+    wget.download(`http://openweathermap.org/img/w/${icon}.png`, `images/${icon}.png`)
   } else {
-    console.log('ignore');
+    console.log(':: weather icon already saved')
   }
   weatherData = {
     weatherType: main,
@@ -126,7 +117,7 @@ const getWeather = async () => {
     rain,
     icon: `./images/${icon}.png`
   }
-  console.log('weatherData', weatherData)
+  console.log(':: getWeather')
   nextHoliday = moment(moment().nextHoliday(1)).isHoliday();
   nextHolidayIn = moment().nextHoliday(1).fromNow()
   return `${Math.round(temp)}° | ${humidity}%`;
@@ -140,40 +131,53 @@ const toTitleCase = (phrase) => {
     .join(' ');
 };
 
-const getDays = async () => {
-  return await axios.get('http://nationaldaycalendar.com/latest-posts/').then(({ data }) => {
-    var today = $('.post', data).first();
-    var nationalDays = $('h2.entry-title a', today).text().split(' – ');
-    nationalDays.shift();
-    const caps = nationalDays.map(day => toTitleCase(day))
-    return caps;
-  }).catch((err) => console.log('err', err))
+const getDays = async (force) => {
+  const today = moment().format('YYYYMMDD')
+  if (!frivolousNatlDays.get(today) || force) {
+    return await axios.get('http://nationaldaycalendar.com/latest-posts/').then(({ data }) => {
+      var today = $('.post', data).first();
+      var nationalDays = $('h2.entry-title a', today).text().split(' – ');
+      nationalDays.shift();
+      console.log(`:: retrieved ${nationalDays.length} frivolous national holidays and stored in db`)
+      const caps = nationalDays.map(day => toTitleCase(day))
+      frivolousNatlDays.set(today, caps)
+      return caps;
+    }).catch((err) => console.log('err', err))
+  } else {
+    return frivolousNatlDays.get(today)
+  }
 }
 
 let weatherString = '';
 let days = [];
-(async function() {
-  weatherString = await getWeather();
-  days = await getDays();
-})()
 
-setInterval(async () => {
+const saveTempData = () => {
+  const { temp } = weatherData
   const today = moment().format('YYYYMMDD');
   if (weatherDb.get(today)) {
     weatherDb.update(today, (val) => {
       val.push(temp)
-      console.log('weatherdb updated', val)
+      console.log('weatherdb updated', val.length)
       return val
     })
   } else {
     weatherDb.set(today, [temp])
   }
-}, 600000);
+}
+
+(async function() {
+  weatherString = await getWeather();
+  saveTempData()
+})()
+setInterval(async () => {
+  
+  await getDays(true);
+  saveTempData()
+}, 3600000/4); // quarter hour
 setInterval(async () => {
   weatherString = await getWeather()
-  days = await getDays();
 }, 120000);
-setInterval(() => {
+setInterval(async () => {
   fb.clear()
   fb.color(1, 1, 1);
   const timeString = moment().format('h:mm a');
@@ -196,11 +200,7 @@ setInterval(() => {
   fb.font("fantasy", 16, true);
   fb.text(xMax - 6, 96, `${nextHoliday} ${nextHolidayIn}`, false, 0, true);
   fb.font("fantasy", 12, true);
-  const maxLength = 32
-  days.forEach((day, i) => {
-    const dayString = `${day.substring(0, Math.min(maxLength, day.length))}${day.length > maxLength ? '...' : ''}`
-    fb.text(xMax - 6, (128 + (i*20)), dayString, false, 0, true);
-  })
+  
   fb.font("fantasy", 16, true);
   const sunsetTime = moment(sunset*1000).local().format('h:mm a');
   fb.text(xMax - 6, 64, sunsetTime, false, 0, true);
@@ -226,12 +226,15 @@ setInterval(() => {
     // show took meds msg
 
     const ago = shortMoment(medsTook).fromNow();
-    fb.font("fantasy", 18);
-    fb.text(64, yMax - 96, ago, true, 45);
+    fb.font("fantasy", 24);
+    fb.text(82, yMax - 80, ago, true, 45);
     fb.image(10, yMax - 96, "./images/pill.png");
   }
   fb.font("fantasy", 44, true);
   fb.text(xMax - 10, yMax - 20, (buttonPresses.get(moment().format('YYYYMMDDa')) || 0), false, 0, true);
+  fb.font("fantasy", 14, true);
+  const last = buttonPresses.get('lastPressed') || moment().valueOf()
+  fb.text(xMax, yMax, shortMoment(last).fromNow(), false, 0, true);
   // if (parseInt(moment().format('HH')) >= 20) {
   //   fb.image(100, yMax - 96, "vodka.png");
   // }
@@ -252,6 +255,13 @@ setInterval(() => {
     fb.text(x - 2, y - 6, Math.floor(val), false, 0, false);
     fb.color(0, 1, 0)
     fb.rect(x, y, barWidth, barHeight, true);
+  })
+  const maxLength = 32
+  const natlDays = await getDays()  
+  fb.color(1, 1, 1)
+  natlDays.forEach((day, i) => {
+    const dayString = `${day.substring(0, Math.min(maxLength, day.length))}${day.length > maxLength ? '...' : ''}`
+    fb.text(xMax - 6, (128 + (i*20)), dayString, false, 0, true);
   })
 }, 2000);
 
@@ -275,6 +285,10 @@ app.get('/status', (req, res) => {
   res.send(msg)
 })
 
+app.get('/espbutton', (req, res) => {
+  res.send('button pressed')
+})
+
 app.post('/meds/took', (req, res) => {
   if (req.body.token === token) {
     // get day-based key
@@ -282,6 +296,20 @@ app.post('/meds/took', (req, res) => {
     // log full timestamp in database
     console.log(':: meds taken', today);
     db.set(today, moment().format());
+  } else {
+    console.log('invalid token')
+    res.status(401);
+    res.send('invalid token')
+  }
+})
+
+app.post('/resetcounter', (req, res) => {
+  if (req.body.token === token) {
+    // get day-based key
+    const today = moment().format('YYYYMMDDa')
+    // log full timestamp in database
+    console.log('reset counter');
+    buttonPresses.set(today, 0)
   } else {
     console.log('invalid token')
     res.status(401);
