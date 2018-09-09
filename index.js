@@ -78,15 +78,9 @@ let subscription = button.on('detected', () => {
       buttonPresses.set(today, 1)
     }
   } else {
-    console.log('pressed too recently');
+    console.log('pressed too recently')
   }
 });
-
-const framebufferText = (text) => {
-  fb.clear();
-  fb.font("fantasy", 32, true);
-  fb.text(xMax, yMax/2, text, false, 0, true);
-}
 
 let textString = '#temp :: #time'
 let f = 0.0;
@@ -183,7 +177,6 @@ setInterval(() => {
   fb.clear()
   fb.color(1, 1, 1);
   const timeString = moment().format('h:mm a');
-  // framebufferText(textString.replace('#temp', weatherString).replace('#time', timeString ))
   const {
     weatherType,
     windSpeed,
@@ -299,7 +292,6 @@ app.get('/meds/diditake', (req, res) => {
   const took = db.get(today);
   if (took) {
     bitYes.play();
-    // framebufferText()
     medsMsg = `Took meds: ${moment(took).fromNow()}`;
     setTimeout(() => fb.clear(), 20000)
     say.speak(`meds taken ${moment(took).fromNow()}`);
@@ -308,8 +300,7 @@ app.get('/meds/diditake', (req, res) => {
 
   } else {
     bitNo.play()
-    framebufferText(`take your meds`)
-    setTimeout(() => fb.clear(), 20000)
+    medsMsg = `take your meds`
     say.speak(`you haven't taken your meds today`)
     res.send(`no meds taken yet today`)
   }
