@@ -11,7 +11,7 @@ const say = require('say')
 const wget = require('wget-improved')
 const fs = require('fs')
 const $ = require('cheerio')
-const DashButton = require('node-dash-button')
+// const DashButton = require('node-dash-button')
 const tinycolor = require('tinycolor2')
 
 const shortMoment = moment;
@@ -34,7 +34,7 @@ shortMoment.updateLocale('en', {
   }
 });
 
-let button = new DashButton(process.env.DASH_MAC, null, null, 'all');
+
 
 const db = dirty('./med-remember.db')
 
@@ -64,30 +64,11 @@ const token = process.env.POST_TOKEN || 'medrememberposttoken';
 
 
 const weatherDb = dirty('./weather.db')
-const buttonPresses = dirty('./buttons.db')
+// const buttonPresses = dirty('./buttons.db')
 const frivolousNatlDays = dirty('./natldays.db')
 const zeroBtns = dirty('./zbutt.db')
 let lastPressed = 0;
-let subscription = button.on('detected', async () => {
-  const todaySkewed = moment().subtract(3, 'hours').format('YYYYMMDD')
-  ding.play()
-  console.log('button pressed', todaySkewed);
-  const now = moment().valueOf()
-  if ((now - lastPressed) > 60000) {
-    lastPressed = now
-    if (buttonPresses.get(todaySkewed)) {
-      buttonPresses.update(todaySkewed, (val) => {
-        return parseInt(val || 0) + 1
-      });
-    } else {
-      buttonPresses.set(todaySkewed, 1)
-    }
-    buttonPresses.set('lastPressed', lastPressed)
-    await axios.get('http://192.168.1.32:8081/pixel/rainbow').catch(err => console.log(err))
-  } else {
-    console.log('pressed too recently')
-  }
-});
+
 
 let textString = '#temp :: #time'
 let f = 0.0;
@@ -267,9 +248,9 @@ setInterval(async () => {
   }
   fb.font("fantasy", 44, true);
   const todaySkewed = moment().subtract(3, 'hours').format('YYYYMMDD')
-  fb.text(xMax - 10, yMax - 20, (buttonPresses.get(todaySkewed) || 0), false, 0, true);
+  // fb.text(xMax - 10, yMax - 20, (buttonPresses.get(todaySkewed) || 0), false, 0, true);
   fb.font("fantasy", 14, true);
-  const last = buttonPresses.get('lastPressed') || moment().valueOf()
+  // const last = buttonPresses.get('lastPressed') || moment().valueOf()
   fb.text(xMax, yMax, shortMoment(last).fromNow(), false, 0, true);
   // if (parseInt(moment().format('HH')) >= 20) {
   //   fb.image(100, yMax - 96, "vodka.png");
@@ -361,7 +342,7 @@ app.post('/resetcounter', (req, res) => {
     const today = moment().format('YYYYMMDDa')
     // log full timestamp in database
     console.log('reset counter');
-    buttonPresses.set(today, 0)
+    // buttonPresses.set(today, 0)
   } else {
     console.log('invalid token')
     res.status(401);
