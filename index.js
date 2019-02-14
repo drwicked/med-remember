@@ -14,6 +14,8 @@ const $ = require('cheerio')
 // const DashButton = require('node-dash-button')
 const tinycolor = require('tinycolor2')
 
+let weatherData = {};
+
 const shortMoment = moment;
 shortMoment.updateLocale('en', {
   relativeTime: {
